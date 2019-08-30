@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Jiao">
 <meta property="og:description" content="第一部分 图像匹配自动打印文档">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-30T14:46:57.126Z">
+<meta property="og:updated_time" content="2019-08-30T15:07:10.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop">
 <meta name="twitter:description" content="第一部分 图像匹配自动打印文档">
@@ -233,7 +233,7 @@ done~~~ -->
 <p>import要用到的包，OpenCV用来图像识别、定位和判断，PyAutoGUI用来鼠标和键盘自动化。这俩双剑合璧很好用，比如玩楚留香时自动采集鸡蛋壳</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line">import cv2</span><br><span class="line">import pyautogui</span><br><span class="line">import time</span><br><span class="line">import os</span><br></pre></td></tr></table></figure>
 
-<p>将屏幕截屏作为目标图像，捕获Keypoints，匹配后排序，获取某个点的坐标</p>
+<p>将屏幕截屏作为目标图像，捕获keypoints和descriptor，匹配后排序，获取某个点的坐标</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 截图、识别、定位</span><br><span class="line">def get_position(local):</span><br><span class="line">    pyautogui.screenshot(&apos;screen.png&apos;)</span><br><span class="line">    img1 = cv2.imread(&apos;screen.png&apos;)</span><br><span class="line">    img2 = cv2.imread(local)</span><br><span class="line">    sift = cv2.xfeatures2d.SIFT_create()</span><br><span class="line">    kp1, des1 = sift.detectAndCompute(img1, None)</span><br><span class="line">    kp2, des2 = sift.detectAndCompute(img2, None)</span><br><span class="line">    bf = cv2.BFMatcher(normType=cv2.NORM_L1, crossCheck=True)</span><br><span class="line">    matches = bf.match(des1, des2)</span><br><span class="line">    matches = sorted(matches, key=lambda x: x.distance)</span><br><span class="line">    index = int(len(matches) / 2)</span><br><span class="line">    x, y = kp1[matches[index].queryIdx].pt</span><br><span class="line">    return (x, y)</span><br></pre></td></tr></table></figure>
 
 <p>打开课件，把打印的流程里的button截图：打开（文件）按钮，打开按钮，打印图标，最后确定打印的按钮，都保存为png图片与脚本放在一个文件夹里<br>退出可以使用‘Ctrl’+‘w’或者截图退出按钮匹配<br>写一个读取路径的函数，遍历</p>
