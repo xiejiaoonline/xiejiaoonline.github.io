@@ -261,6 +261,103 @@
 
 
   
+    <article id="post-java" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+
+
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/21/java/">Tower of hanoi及课后作业</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/21/java/" class="archive-article-date">
+  	<time datetime="2019-10-21T10:32:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-21</time>
+</a>
+        
+
+
+        
+     
+      
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div align="center">
+    <img width="90%" height="400" src="https://s2.ax1x.com/2019/10/21/K19jqe.png">
+</div> 
+周五讲了一节递归，当时说周一把课后作业的答案放到博客，感兴趣的同学可以看一看。第二个例子讲了汉诺塔，这里也把代码放出来：
+
+<blockquote>
+<p>Task<br>Create a 1D array with 10 integer variables. The value of each integer variable in the 1D array will be set as a random number between 1 and 100. write a method to find the smallest number among the 10 integers in the array. The output of the program should firstly display all integers in the array, and then indicate the smallest integer among them as well as the index of the smallest integer in the array. </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package net.iris.junit.test;</span><br><span class="line"></span><br><span class="line">public class FindSmallest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // TODO code application logic here</span><br><span class="line">        int[] a=new int[10];</span><br><span class="line">        int smallest=100;</span><br><span class="line">        int index=0;</span><br><span class="line">        for(int i=0;i&lt;a.length;i++)&#123;</span><br><span class="line">            a[i]=(int)(Math.random()*100)+1;</span><br><span class="line">            if(a[i]&lt;smallest)&#123;</span><br><span class="line">                smallest=a[i];</span><br><span class="line">                index=i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i=0;i&lt;a.length;i++)&#123;</span><br><span class="line">            System.out.print(a[i]+&quot;, &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        System.out.println(&quot;The smallest one is: &quot;+smallest+&quot;, and the index is: &quot;+index);</span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Tower of hanoi</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">package com.clive.demo1;</span><br><span class="line"></span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Hanoi &#123;</span><br><span class="line">    static int step = 0; </span><br><span class="line">    static int diskNum; //number of disks</span><br><span class="line">    static int[] array=new int[3];</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Scanner scan=new Scanner(System.in);</span><br><span class="line">        diskNum=scan.nextInt();</span><br><span class="line">        array[0]=diskNum;</span><br><span class="line">        System.out.print(&quot;The initialized number of disks in each rod is: &quot;);</span><br><span class="line">        for(int i=0;i&lt;array.length;i++)&#123;</span><br><span class="line">            System.out.print(array[i]+&quot;, &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        hanoi(diskNum,&apos;A&apos;,&apos;B&apos;,&apos;C&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void hanoi(int n,char src,char mid,char dest)&#123;</span><br><span class="line">        if (n==1)&#123;</span><br><span class="line">            move(n,src,dest);</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            //move n-1 disks from rod-src to rod-mid ,assisted by rod-dest</span><br><span class="line">            hanoi(n-1,src,dest,mid);</span><br><span class="line">            //move the left 1 disk to the rod-dest directly</span><br><span class="line">            move(n,src,dest);</span><br><span class="line">            //move the left n-1 disks from rod-mid to rod-dest</span><br><span class="line">            hanoi(n-1,mid,src,dest);   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    public static void move(int n,char src,char dest)&#123;</span><br><span class="line">        System.out.println(&quot;Step &quot;+(++step)+&quot;: Move the disk &quot;+n+&quot; from &quot; + src +&quot; to &quot;+ dest );</span><br><span class="line">        array[src-&apos;A&apos;]--;</span><br><span class="line">        array[dest-&apos;A&apos;]++;</span><br><span class="line">        System.out.print(&quot;The number of disks in each rod is: &quot;);</span><br><span class="line">        for(int i=0;i&lt;array.length;i++)&#123;</span><br><span class="line">            System.out.print(array[i]+&quot;, &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/21/java/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -935,11 +1032,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -956,6 +1053,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">fiddler</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
             
             <div class="clearfix"></div>
